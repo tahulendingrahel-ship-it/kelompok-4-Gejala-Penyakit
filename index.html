@@ -2,57 +2,76 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SPK Pertanian - Kelompok 4 TI</title>
+<title>SPK Penyakit Tanaman - Kelompok 4 TI</title>
 
 <style>
     body {
         margin: 0;
         font-family: Arial, sans-serif;
-        background: #e8f5e9;
+        background: #e9f5e9;
     }
 
-    /* Halaman Menu */
+    /* ====================== MENU ====================== */
     #menuPage {
-        text-align: center;
-        padding-top: 120px;
         height: 100vh;
         background: url("https://i.postimg.cc/3x23z0SP/farm-bg.jpg") center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         color: white;
+        text-shadow: 2px 2px 5px black;
+        padding: 0 20px;
+        text-align: center;
     }
 
     .judul {
-        font-size: 36px;
+        font-size: 42px;
         font-weight: bold;
-        text-shadow: 2px 2px 5px #000;
+        margin-bottom: 10px;
     }
 
     .subjudul {
-        margin-top: -10px;
-        font-size: 20px;
-        text-shadow: 1px 1px 3px #000;
+        font-size: 22px;
+        margin-bottom: 40px;
+    }
+
+    .kelompok {
+        font-size: 24px;
+        font-weight: bold;
+        background: rgba(0,0,0,0.4);
+        padding: 10px 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
     }
 
     .btn {
-        margin-top: 25px;
-        padding: 15px 30px;
-        font-size: 18px;
+        padding: 15px 40px;
+        font-size: 20px;
+        font-weight: bold;
         background: #4CAF50;
         color: white;
         border: none;
-        border-radius: 10px;
+        border-radius: 12px;
         cursor: pointer;
+        transition: 0.3s;
     }
 
-    /* Halaman SPK */
+    .btn:hover {
+        transform: scale(1.1);
+        background: #45a049;
+    }
+
+    /* ====================== SPK ====================== */
     #spkPage {
         display: none;
-        background: #ffffff;
         width: 90%;
-        max-width: 500px;
+        max-width: 600px;
         margin: 40px auto;
         padding: 20px;
+        background: white;
         border-radius: 12px;
-        box-shadow: 0 0 10px #aaa;
+        box-shadow: 0 0 12px rgba(0,0,0,0.2);
     }
 
     select, button {
@@ -60,12 +79,109 @@
         padding: 12px;
         margin-top: 10px;
         font-size: 16px;
+        border-radius: 8px;
     }
 
     .result-box {
-        margin-top: 15px;
+        margin-top: 20px;
         padding: 15px;
-        bac
+        background: #eef8ee;
+        border-left: 5px solid #4CAF50;
+        border-radius: 8px;
+    }
 
+    .imgPenyakit {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
 
+<!-- =============== MENU =============== -->
+<div id="menuPage">
+    <div class="judul">SISTEM PENDUKUNG KEPUTUSAN</div>
+    <div class="subjudul">Diagnosa Penyakit Tanaman</div>
 
+    <div class="kelompok">KELOMPOK 4 - TEKNOLOGI INFORMASI</div>
+
+    <button class="btn" onclick="bukaSPK()">MASUK KE SPK</button>
+</div>
+
+<!-- =============== SPK =============== -->
+<div id="spkPage">
+    <h2 style="text-align:center;">Pilih Gejala</h2>
+
+    <select id="gejalaSelect">
+        <option value="">-- pilih gejala --</option>
+    </select>
+
+    <button class="btn" onclick="diagnosa()">Diagnosa</button>
+
+    <div id="hasil"></div>
+</div>
+
+<script>
+// ====================== DATA ==========================
+const data = [
+    {tumbuhan:"Anggur", penyakit:"Embun Tepung (Powdery Mildew)", gejala:"Daun Menguning dan Menggulung", img:"https://i.postimg.cc/fR7q7z9z/powdery-mildew.jpg"},
+    {tumbuhan:"Gandum", penyakit:"Karat Daun (Leaf Rust)", gejala:"Bercak Timbul pada Permukaan Daun", img:"https://i.postimg.cc/TwPWmKbp/leaf-rust.jpg"},
+    {tumbuhan:"Padi", penyakit:"Hawar Daun Bakteri (BLB)", gejala:"Ujung Daun Mengering", img:"https://i.postimg.cc/XJy7sdqt/hawar-daun.jpg"},
+    {tumbuhan:"Tomat", penyakit:"Busuk Akar (Root Rot)", gejala:"Tanaman Layu meski Tanah Basah", img:"https://i.postimg.cc/tTKKr0nC/root-rot.jpg"},
+    {tumbuhan:"Melon", penyakit:"Layu Fusarium", gejala:"Batang Bagian dalam Cokelat", img:"https://i.postimg.cc/Vvy92LrD/fusarium.jpg"},
+    {tumbuhan:"Timun", penyakit:"Virus Mosaik (CMV/TMV)", gejala:"Daun Keriting dan Mengecil", img:"https://i.postimg.cc/Vsk0ryyb/mosaic-virus.jpg"},
+    {tumbuhan:"Pepaya", penyakit:"Antraknosa (Anthracnose)", gejala:"Ada Cincin Konsentris", img:"https://i.postimg.cc/jds0svZK/anthracnose.jpg"},
+    {tumbuhan:"Kentang", penyakit:"Layu Bakteri (Bacterial Wilt)", gejala:"Tanaman Layu Mendadak", img:"https://i.postimg.cc/hPfGxXn1/bacterial-wilt.jpg"},
+    {tumbuhan:"Cabai", penyakit:"Gummosis (Getah)", gejala:"Getah Kental Keluar dari Batang", img:"https://i.postimg.cc/mDdG1rWY/gummosis.jpg"},
+    {tumbuhan:"Kelapa Sawit", penyakit:"Busuk Pangkal Batang (BSR)", gejala:"Pangkal Batang Membusuk dan Hitam", img:"https://i.postimg.cc/Y0d2JxxC/basal-stem-rot.jpg"},
+];
+
+// ====== Ambil semua gejala unik ======
+const gejalaList = [...new Set(data.map(d => d.gejala))];
+
+// ====== Isi dropdown gejala ======
+function isiDropdown() {
+    const select = document.getElementById("gejalaSelect");
+    gejalaList.forEach(g => {
+        select.innerHTML += `<option value="${g}">${g}</option>`;
+    });
+}
+isiDropdown();
+
+// ====== Masuk ke halaman SPK ======
+function bukaSPK() {
+    document.getElementById("menuPage").style.display = "none";
+    document.getElementById("spkPage").style.display = "block";
+}
+
+// ====== Diagnosa ======
+function diagnosa() {
+    const g = document.getElementById("gejalaSelect").value;
+    const hasil = document.getElementById("hasil");
+
+    if (!g) {
+        hasil.innerHTML = `<div class='result-box'>Silakan pilih gejala terlebih dahulu.</div>`;
+        return;
+    }
+
+    const cocok = data.find(d => d.gejala === g);
+
+    if (!cocok) {
+        hasil.innerHTML = `<div class='result-box'>Tidak ditemukan penyakit untuk gejala ini.</div>`;
+        return;
+    }
+
+    hasil.innerHTML = `
+        <div class='result-box'>
+            <b>Nama Tumbuhan:</b> ${cocok.tumbuhan} <br>
+            <b>Penyakit:</b> ${cocok.penyakit} <br>
+            <b>Gejala:</b> ${cocok.gejala} <br>
+            <img class='imgPenyakit' src="${cocok.img}">
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>
