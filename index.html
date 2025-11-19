@@ -2,19 +2,25 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SPK Diagnosa Penyakit Tumbuhan</title>
+<title>SPK Penyakit Tanaman – Kelompok 4 TI</title>
 
 <style>
+    /* ------------------ FONTS ------------------ */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
-        background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') no-repeat center center fixed;
+        background: url('https://i.postimg.cc/3x23z0SP/farm-bg.jpg') no-repeat center center fixed;
         background-size: cover;
-        color: #fff;
+        overflow-x: hidden;
     }
 
     .overlay {
-        background: rgba(0,0,0,0.6);
+        background: rgba(0,0,0,0.55);
         width: 100%;
         height: 100vh;
         position: absolute;
@@ -22,102 +28,144 @@
         left: 0;
     }
 
-    .container {
+    /* ---------------- MENU UTAMA ---------------- */
+    #menuUtama {
         position: relative;
         z-index: 10;
         text-align: center;
-        padding-top: 120px;
+        padding-top: 140px;
+        color: white;
+        animation: fadeIn 1.4s ease-out;
     }
 
     h1 {
-        font-size: 45px;
-        font-weight: bold;
-        text-shadow: 2px 2px 8px #000;
+        font-size: 50px;
+        font-weight: 700;
+        text-shadow: 3px 3px 10px #000;
     }
 
     h3 {
-        text-shadow: 2px 2px 6px #000;
+        margin-top: -10px;
+        font-weight: 400;
+        text-shadow: 2px 2px 8px #000;
     }
 
-    button {
-        padding: 15px 25px;
-        font-size: 18px;
+    /* Tombol animasi */
+    .btnStart {
         margin-top: 20px;
+        padding: 16px 34px;
+        font-size: 20px;
+        border-radius: 50px;
         border: none;
         cursor: pointer;
         background: #4CAF50;
         color: white;
-        border-radius: 8px;
-        transition: 0.3s;
-    }
-    button:hover {
-        background: #3e8e41;
+        box-shadow: 0 0 12px #2d882d;
+        transition: 0.35s;
+        animation: pulse 2s infinite;
     }
 
-    /* SPK CARD */
+    .btnStart:hover {
+        transform: scale(1.15);
+        box-shadow: 0 0 22px #4CAF50;
+    }
+
+    /* ---------------- HALAMAN SPK ---------------- */
     #spkPage {
         display: none;
+        position: relative;
+        z-index: 20;
+        margin: 60px auto;
+        width: 90%;
+        max-width: 650px;
         background: rgba(255,255,255,0.95);
-        color: black;
-        padding: 20px;
-        margin: 50px auto;
-        width: 500px;
-        border-radius: 12px;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 0 18px rgba(0,0,0,0.3);
+        animation: slideUp 0.9s ease-out;
     }
 
-    select, .btnDiagnosa {
+    select, button {
         width: 100%;
-        padding: 12px;
+        padding: 14px;
         margin-top: 10px;
-        font-size: 16px;
     }
 
     .btnDiagnosa {
-        background: #4CAF50;
-        color:white;
-        border: none;
+        background: #388E3C;
         border-radius: 8px;
-        cursor: pointer;
+        border: none;
+        color:white;
+        font-size: 17px;
+        cursor:pointer;
+        transition: 0.3s;
     }
 
     .btnDiagnosa:hover {
-        background: #3e8e41;
+        transform: scale(1.07);
+        box-shadow: 0 0 10px #388E3C;
     }
 
+    /* Hasil Diagnosa */
     .result-box {
-        background: #e7ffe7;
+        background: #e8ffe8;
+        border-left: 5px solid #3DAE3D;
         padding: 15px;
         margin-top: 20px;
         border-radius: 8px;
-        border-left: 5px solid #4CAF50;
+        animation: fadeIn 0.9s ease-out;
     }
 
+    .imgPenyakit {
+        width: 100%;
+        border-radius: 14px;
+        margin-top: 10px;
+        box-shadow: 0 0 10px #999;
+        animation: zoomIn 0.8s ease-out;
+    }
+
+    /* ------------------- ANIMASI ------------------- */
+    @keyframes fadeIn {
+        from { opacity:0; }
+        to { opacity:1; }
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(40px); opacity:0; }
+        to { transform: translateY(0); opacity:1; }
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity:0; }
+        to { transform: scale(1); opacity:1; }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+        100% { transform: scale(1); }
+    }
 </style>
-
 </head>
-<body>
 
+<body>
 <div class="overlay"></div>
 
 <!-- ============================= -->
-<!--            MENU UTAMA         -->
+<!--         MENU UTAMA            -->
 <!-- ============================= -->
-<div class="container" id="menuUtama">
+<div id="menuUtama">
     <h1>SISTEM PENDUKUNG KEPUTUSAN<br>PENYAKIT TANAMAN</h1>
     <h3>KELOMPOK 4 – TEKNOLOGI INFORMASI</h3>
-
-    <button onclick="bukaSPK()">Mulai Diagnosa Penyakit</button>
+    <button class="btnStart" onclick="bukaSPK()">Mulai Diagnosa</button>
 </div>
 
 <!-- ============================= -->
-<!--        HALAMAN SPK           -->
+<!--            SPK                -->
 <!-- ============================= -->
 <div id="spkPage">
+    <h2 style="text-align:center;">Diagnosa Penyakit Tanaman</h2>
 
-    <h2 style="text-align:center;">Diagnosa Penyakit Tumbuhan</h2>
-    <p style="text-align:center;">Pilih gejala untuk mengetahui penyakitnya</p>
-
-    <!-- Pilihan Gejala -->
     <label>Gejala 1:</label>
     <select id="gejala1" onchange="updateGejala2()">
         <option value="">-- pilih gejala --</option>
@@ -131,30 +179,44 @@
     <button class="btnDiagnosa" onclick="diagnosa()">Diagnosa</button>
 
     <div id="hasil"></div>
-
 </div>
 
 <script>
-// =============================================
-//        DATA DARI EXCEL (SUDAH DIBERSIHKAN)
-// =============================================
+/* =============================
+      DATABASE PENYAKIT
+   ============================= */
 const data = [
-    { no:1, tanaman:"Anggur", penyakit:"Embun Tepung", gejala:"Daun Menguning dan Menggulung" },
-    { no:2, tanaman:"Gandum", penyakit:"Karat Daun", gejala:"Bercak Timbul pada Permukaan Daun" },
-    { no:3, tanaman:"Padi", penyakit:"Hawar Daun", gejala:"Ujung Daun Mengering" },
-    { no:4, tanaman:"Tomat", penyakit:"Layu Fusarium", gejala:"Tanaman Layu meski Tanah Basah" },
-    { no:5, tanaman:"Melon", penyakit:"Busuk Batang", gejala:"Batang Bagian dalam Cokelat" },
-    { no:6, tanaman:"Timun", penyakit:"Virus Daun Keriting", gejala:"Daun Keriting dan Mengecil" },
-    { no:7, tanaman:"Pepaya", penyakit:"Bercak Daun Cincin", gejala:"Ada Cincin Konsentris" },
-    { no:8, tanaman:"Kentang", penyakit:"Layu Bakteri", gejala:"Tanaman Layu Mendadak" },
-    { no:9, tanaman:"Cabai", penyakit:"Gummosis", gejala:"Getah Kental Keluar dari Batang" },
-    { no:10, tanaman:"Kelapa Sawit", penyakit:"Busuk Pangkal Batang", gejala:"Pangkal Batang Membusuk dan Hitam" }
+    {
+        no:1, tanaman:"Anggur", penyakit:"Embun Tepung",
+        gejala:"Daun Menguning dan Menggulung",
+        img:"https://i.postimg.cc/fR7q7z9z/powdery-mildew.jpg"
+    },
+    {
+        no:2, tanaman:"Gandum", penyakit:"Karat Daun",
+        gejala:"Bercak Timbul pada Permukaan Daun",
+        img:"https://i.postimg.cc/TwPWmKbp/leaf-rust.jpg"
+    },
+    {
+        no:3, tanaman:"Padi", penyakit:"Hawar Daun",
+        gejala:"Ujung Daun Mengering",
+        img:"https://i.postimg.cc/XJy7sdqt/hawar-daun.jpg"
+    },
+    {
+        no:4, tanaman:"Tomat", penyakit:"Layu Fusarium",
+        gejala:"Tanaman Layu meski Tanah Basah",
+        img:"https://i.postimg.cc/K8wT7N95/fusarium.jpg"
+    },
+    {
+        no:5, tanaman:"Melon", penyakit:"Busuk Batang",
+        gejala:"Batang Bagian dalam Cokelat",
+        img:"https://i.postimg.cc/YSfghV1W/busuk-batang.jpg"
+    }
 ];
 
-// Ambil daftar gejala unik
+// Ambil gejala unik
 const daftarGejala = [...new Set(data.map(d => d.gejala))];
 
-// Isi dropdown gejala1 dan gejala2
+// Isi dropdown
 function isiDropdown() {
     const g1 = document.getElementById('gejala1');
     const g2 = document.getElementById('gejala2');
@@ -165,63 +227,46 @@ function isiDropdown() {
     });
 }
 
-// Update gejala2 agar tidak redundan
 function updateGejala2() {
-    const dipilih = document.getElementById('gejala1').value;
+    const pilih = document.getElementById('gejala1').value;
     const g2 = document.getElementById('gejala2');
-
     g2.innerHTML = `<option value="">-- pilih gejala --</option>`;
+
     daftarGejala
-        .filter(g => g !== dipilih)
+        .filter(g => g !== pilih)
         .forEach(g => g2.innerHTML += `<option value="${g}">${g}</option>`);
 }
 
-// Fungsi diagnosa
+function bukaSPK() {
+    document.getElementById("menuUtama").style.display = "none";
+    document.getElementById("spkPage").style.display = "block";
+}
+
 function diagnosa() {
-    const g1 = document.getElementById('gejala1').value;
-    const g2 = document.getElementById('gejala2').value;
-    const hasilDiv = document.getElementById('hasil');
+    const g1 = document.getElementById("gejala1").value;
+    const g2 = document.getElementById("gejala2").value;
+
+    const hasil = document.getElementById("hasil");
 
     if (!g1) {
-        hasilDiv.innerHTML = `<div class="result-box" style="background:#ffe7e7;border-left:5px solid red;">
-            ❗ Pilih minimal 1 gejala terlebih dahulu.
-        </div>`;
+        hasil.innerHTML = `<div class="result-box">❗ Pilih gejala terlebih dahulu.</div>`;
         return;
     }
 
-    const kemungkinan = data.filter(d => d.gejala === g1 || d.gejala === g2);
+    const cocok = data.filter(d => d.gejala === g1 || d.gejala === g2);
 
-    if (kemungkinan.length === 0) {
-        hasilDiv.innerHTML = `<div class="result-box" style="background:#ffe7e7;border-left:5px solid red;">
-            ❗ Tidak ditemukan penyakit berdasarkan gejala tersebut.
-        </div>`;
+    if (cocok.length === 0) {
+        hasil.innerHTML = `<div class="result-box">❗ Tidak ada penyakit yang cocok.</div>`;
         return;
     }
 
-    let output = `<div class="result-box"><b>HASIL DIAGNOSA</b><br><br>`;
+    let html = "";
 
-    kemungkinan.forEach(k => {
-        output += `
-            🌿 <b>${k.tanaman}</b><br>
-            Penyakit: <b>${k.penyakit}</b><br>
-            Gejala: ${k.gejala}<br><br>
-        `;
-    });
-
-    output += `</div>`;
-    hasilDiv.innerHTML = output;
-}
-
-// Fungsi buka halaman SPK
-function bukaSPK() {
-    document.getElementById('menuUtama').style.display = 'none';
-    document.getElementById('spkPage').style.display = 'block';
-}
-
-isiDropdown();
-</script>
-
-</body>
-</html>
+    cocok.forEach(c => {
+        html += `
+            <div class="result-box">
+                <b>Tanaman:</b> ${c.tanaman}<br>
+                <b>Penyakit:</b> ${c.penyakit}<br>
+                <b>Gejala:</
 
 
