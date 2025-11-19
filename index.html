@@ -2,271 +2,70 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SPK Penyakit Tanaman – Kelompok 4 TI</title>
+<title>SPK Pertanian - Kelompok 4 TI</title>
 
 <style>
-    /* ------------------ FONTS ------------------ */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-    * {
-        font-family: 'Poppins', sans-serif;
-    }
-
     body {
         margin: 0;
-        background: url('https://i.postimg.cc/3x23z0SP/farm-bg.jpg') no-repeat center center fixed;
-        background-size: cover;
-        overflow-x: hidden;
+        font-family: Arial, sans-serif;
+        background: #e8f5e9;
     }
 
-    .overlay {
-        background: rgba(0,0,0,0.55);
-        width: 100%;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    /* ---------------- MENU UTAMA ---------------- */
-    #menuUtama {
-        position: relative;
-        z-index: 10;
+    /* Halaman Menu */
+    #menuPage {
         text-align: center;
-        padding-top: 140px;
+        padding-top: 120px;
+        height: 100vh;
+        background: url("https://i.postimg.cc/3x23z0SP/farm-bg.jpg") center/cover no-repeat;
         color: white;
-        animation: fadeIn 1.4s ease-out;
     }
 
-    h1 {
-        font-size: 50px;
-        font-weight: 700;
-        text-shadow: 3px 3px 10px #000;
+    .judul {
+        font-size: 36px;
+        font-weight: bold;
+        text-shadow: 2px 2px 5px #000;
     }
 
-    h3 {
+    .subjudul {
         margin-top: -10px;
-        font-weight: 400;
-        text-shadow: 2px 2px 8px #000;
+        font-size: 20px;
+        text-shadow: 1px 1px 3px #000;
     }
 
-    /* Tombol animasi */
-    .btnStart {
-        margin-top: 20px;
-        padding: 16px 34px;
-        font-size: 20px;
-        border-radius: 50px;
-        border: none;
-        cursor: pointer;
+    .btn {
+        margin-top: 25px;
+        padding: 15px 30px;
+        font-size: 18px;
         background: #4CAF50;
         color: white;
-        box-shadow: 0 0 12px #2d882d;
-        transition: 0.35s;
-        animation: pulse 2s infinite;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
     }
 
-    .btnStart:hover {
-        transform: scale(1.15);
-        box-shadow: 0 0 22px #4CAF50;
-    }
-
-    /* ---------------- HALAMAN SPK ---------------- */
+    /* Halaman SPK */
     #spkPage {
         display: none;
-        position: relative;
-        z-index: 20;
-        margin: 60px auto;
+        background: #ffffff;
         width: 90%;
-        max-width: 650px;
-        background: rgba(255,255,255,0.95);
-        border-radius: 18px;
-        padding: 25px;
-        box-shadow: 0 0 18px rgba(0,0,0,0.3);
-        animation: slideUp 0.9s ease-out;
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px #aaa;
     }
 
     select, button {
         width: 100%;
-        padding: 14px;
+        padding: 12px;
         margin-top: 10px;
+        font-size: 16px;
     }
 
-    .btnDiagnosa {
-        background: #388E3C;
-        border-radius: 8px;
-        border: none;
-        color:white;
-        font-size: 17px;
-        cursor:pointer;
-        transition: 0.3s;
-    }
-
-    .btnDiagnosa:hover {
-        transform: scale(1.07);
-        box-shadow: 0 0 10px #388E3C;
-    }
-
-    /* Hasil Diagnosa */
     .result-box {
-        background: #e8ffe8;
-        border-left: 5px solid #3DAE3D;
+        margin-top: 15px;
         padding: 15px;
-        margin-top: 20px;
-        border-radius: 8px;
-        animation: fadeIn 0.9s ease-out;
-    }
+        bac
 
-    .imgPenyakit {
-        width: 100%;
-        border-radius: 14px;
-        margin-top: 10px;
-        box-shadow: 0 0 10px #999;
-        animation: zoomIn 0.8s ease-out;
-    }
-
-    /* ------------------- ANIMASI ------------------- */
-    @keyframes fadeIn {
-        from { opacity:0; }
-        to { opacity:1; }
-    }
-
-    @keyframes slideUp {
-        from { transform: translateY(40px); opacity:0; }
-        to { transform: translateY(0); opacity:1; }
-    }
-
-    @keyframes zoomIn {
-        from { transform: scale(0.8); opacity:0; }
-        to { transform: scale(1); opacity:1; }
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.08); }
-        100% { transform: scale(1); }
-    }
-</style>
-</head>
-
-<body>
-<div class="overlay"></div>
-
-<!-- ============================= -->
-<!--         MENU UTAMA            -->
-<!-- ============================= -->
-<div id="menuUtama">
-    <h1>SISTEM PENDUKUNG KEPUTUSAN<br>PENYAKIT TANAMAN</h1>
-    <h3>KELOMPOK 4 – TEKNOLOGI INFORMASI</h3>
-    <button class="btnStart" onclick="bukaSPK()">Mulai Diagnosa</button>
-</div>
-
-<!-- ============================= -->
-<!--            SPK                -->
-<!-- ============================= -->
-<div id="spkPage">
-    <h2 style="text-align:center;">Diagnosa Penyakit Tanaman</h2>
-
-    <label>Gejala 1:</label>
-    <select id="gejala1" onchange="updateGejala2()">
-        <option value="">-- pilih gejala --</option>
-    </select>
-
-    <label>Gejala 2:</label>
-    <select id="gejala2">
-        <option value="">-- pilih gejala --</option>
-    </select>
-
-    <button class="btnDiagnosa" onclick="diagnosa()">Diagnosa</button>
-
-    <div id="hasil"></div>
-</div>
-
-<script>
-/* =============================
-      DATABASE PENYAKIT
-   ============================= */
-const data = [
-    {
-        no:1, tanaman:"Anggur", penyakit:"Embun Tepung",
-        gejala:"Daun Menguning dan Menggulung",
-        img:"https://i.postimg.cc/fR7q7z9z/powdery-mildew.jpg"
-    },
-    {
-        no:2, tanaman:"Gandum", penyakit:"Karat Daun",
-        gejala:"Bercak Timbul pada Permukaan Daun",
-        img:"https://i.postimg.cc/TwPWmKbp/leaf-rust.jpg"
-    },
-    {
-        no:3, tanaman:"Padi", penyakit:"Hawar Daun",
-        gejala:"Ujung Daun Mengering",
-        img:"https://i.postimg.cc/XJy7sdqt/hawar-daun.jpg"
-    },
-    {
-        no:4, tanaman:"Tomat", penyakit:"Layu Fusarium",
-        gejala:"Tanaman Layu meski Tanah Basah",
-        img:"https://i.postimg.cc/K8wT7N95/fusarium.jpg"
-    },
-    {
-        no:5, tanaman:"Melon", penyakit:"Busuk Batang",
-        gejala:"Batang Bagian dalam Cokelat",
-        img:"https://i.postimg.cc/YSfghV1W/busuk-batang.jpg"
-    }
-];
-
-// Ambil gejala unik
-const daftarGejala = [...new Set(data.map(d => d.gejala))];
-
-// Isi dropdown
-function isiDropdown() {
-    const g1 = document.getElementById('gejala1');
-    const g2 = document.getElementById('gejala2');
-
-    daftarGejala.forEach(g => {
-        g1.innerHTML += `<option value="${g}">${g}</option>`;
-        g2.innerHTML += `<option value="${g}">${g}</option>`;
-    });
-}
-
-function updateGejala2() {
-    const pilih = document.getElementById('gejala1').value;
-    const g2 = document.getElementById('gejala2');
-    g2.innerHTML = `<option value="">-- pilih gejala --</option>`;
-
-    daftarGejala
-        .filter(g => g !== pilih)
-        .forEach(g => g2.innerHTML += `<option value="${g}">${g}</option>`);
-}
-
-function bukaSPK() {
-    document.getElementById("menuUtama").style.display = "none";
-    document.getElementById("spkPage").style.display = "block";
-}
-
-function diagnosa() {
-    const g1 = document.getElementById("gejala1").value;
-    const g2 = document.getElementById("gejala2").value;
-
-    const hasil = document.getElementById("hasil");
-
-    if (!g1) {
-        hasil.innerHTML = `<div class="result-box">❗ Pilih gejala terlebih dahulu.</div>`;
-        return;
-    }
-
-    const cocok = data.filter(d => d.gejala === g1 || d.gejala === g2);
-
-    if (cocok.length === 0) {
-        hasil.innerHTML = `<div class="result-box">❗ Tidak ada penyakit yang cocok.</div>`;
-        return;
-    }
-
-    let html = "";
-
-    cocok.forEach(c => {
-        html += `
-            <div class="result-box">
-                <b>Tanaman:</b> ${c.tanaman}<br>
-                <b>Penyakit:</b> ${c.penyakit}<br>
-                <b>Gejala:</
 
 
