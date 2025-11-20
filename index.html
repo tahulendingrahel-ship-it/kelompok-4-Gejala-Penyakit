@@ -102,7 +102,7 @@
 <!-- WELCOME SCREEN -->
 <div id="welcomeScreen">
     <h1 style="font-size:50px; font-weight:800; margin-bottom:15px;">🌿 SPK Tumbuhan</h1>
-    <p style="font-size:22px; margin-bottom:40px; opacity:0.9; max-width:80%;">
+    <p style="font-size:22px; margin-bottom:40px; opacity:0.9;">
         Sistem Pendukung Keputusan Diagnosa Penyakit Tanaman
     </p>
 
@@ -160,47 +160,67 @@ function mulaiSPK() {
 </div>
 
 <script>
-/* ==== DATA 10 TANAMAN HORTIKULTURA ==== */
+/* ==== DATA 10 TANAMAN + NAMA ILMIAH TANAMAN & PATOGEN ==== */
 const data = {
     cabai: { 
+        ilmiah: "Capsicum annuum",
         penyakit: "Antraknosa", 
-        gejala: "Buah muncul bercak hitam cekung yang membusuk dan menyebabkan buah rontok." 
+        patogen: "Colletotrichum capsici / C. gloeosporioides",
+        gejala: "Buah muncul bercak hitam cekung, membusuk, dan rontok."
     },
     tomat: { 
+        ilmiah: "Solanum lycopersicum",
         penyakit: "Layu Fusarium", 
-        gejala: "Daun menguning dimulai dari bawah lalu layu satu per satu, batang kecoklatan." 
+        patogen: "Fusarium oxysporum f. sp. lycopersici",
+        gejala: "Daun menguning dari bawah, tanaman layu, batang kecoklatan."
     },
     bawang: { 
+        ilmiah: "Allium ascalonicum",
         penyakit: "Busuk Daun Alternaria", 
-        gejala: "Daun terdapat bercak ungu kecoklatan dan ujung daun mengering." 
+        patogen: "Alternaria porri",
+        gejala: "Daun terdapat bercak ungu kecoklatan, ujung daun mengering."
     },
     kentang: { 
+        ilmiah: "Solanum tuberosum",
         penyakit: "Busuk Daun (Late Blight)", 
-        gejala: "Daun bercak hijau gelap berair, batang menghitam, umbi membusuk coklat." 
+        patogen: "Phytophthora infestans",
+        gejala: "Daun bercak basah gelap, batang menghitam, umbi membusuk."
     },
     semangka: { 
+        ilmiah: "Citrullus lanatus",
         penyakit: "Embun Bulu", 
-        gejala: "Daun menguning bermotif mosaik, bagian bawah daun ada jamur keabu-abuan." 
+        patogen: "Pseudoperonospora cubensis",
+        gejala: "Daun kuning bercorak mosaik, bawah daun berjamur abu-abu."
     },
     melon: { 
+        ilmiah: "Cucumis melo",
         penyakit: "Layu Bakteri", 
-        gejala: "Tanaman layu tiba-tiba, batang jika dipotong keluar lendir putih pekat." 
+        patogen: "Erwinia tracheiphila",
+        gejala: "Tanaman layu mendadak, keluar lendir putih jika batang dipotong."
     },
     kol: { 
+        ilmiah: "Brassica oleracea",
         penyakit: "Busuk Hitam", 
-        gejala: "Daun menguning membentuk pola huruf 'V', urat daun menghitam." 
+        patogen: "Xanthomonas campestris pv. campestris",
+        gejala: "Daun menguning bentuk V, urat daun menghitam."
     },
     timun: { 
+        ilmiah: "Cucumis sativus",
         penyakit: "Embun Tepung", 
-        gejala: "Daun tertutup bubuk putih, menguning, dan mudah rontok." 
+        patogen: "Erysiphe cichoracearum / Podosphaera xanthii",
+        gejala: "Daun tertutup bubuk putih, menguning dan rontok."
     },
     stroberi: { 
-        penyakit: "Busuk Akar (Phytophthora)", 
-        gejala: "Akar berwarna coklat gelap dan membusuk, daun layu dari bawah." 
+        ilmiah: "Fragaria × ananassa",
+        penyakit: "Busuk Akar", 
+        patogen: "Phytophthora fragariae",
+        gejala: "Akar coklat gelap & busuk, daun layu dari bawah."
     },
     terung: { 
+        ilmiah: "Solanum melongena",
         penyakit: "Bercak Daun Cercospora", 
-        gejala: "Daun muncul bercak bulat abu-abu dengan tepi coklat lalu mengering." 
+        patogen: "Cercospora melongenae",
+        gejala: "Daun muncul bercak abu-abu bulat dengan tepi coklat."
     }
 };
 
@@ -219,7 +239,11 @@ function diagnosa() {
     output.style.display = "block";
     output.innerHTML = `
         <b>Tumbuhan:</b> ${tanaman.charAt(0).toUpperCase() + tanaman.slice(1)}<br>
+        <b>Nama Ilmiah:</b> <i>${t.ilmiah}</i><br><br>
+
         <b>Penyakit:</b> ${t.penyakit}<br>
+        <b>Patogen:</b> <i>${t.patogen}</i><br><br>
+
         <b>Gejala:</b> ${t.gejala}
     `;
 }
