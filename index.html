@@ -12,7 +12,7 @@
         overflow-x: hidden;
     }
 
-    /* Animasi daun jatuh */
+    /* ==================== ANIMASI DAUN ==================== */
     .leaf {
         position: fixed;
         top: -50px;
@@ -22,6 +22,7 @@
         background-size: cover;
         opacity: 0.8;
         animation: fall 5s linear infinite;
+        pointer-events: none;
     }
 
     @keyframes fall {
@@ -32,19 +33,23 @@
     /* ====================== MENU ====================== */
     #menuPage {
         height: 100vh;
-        background: url("https://i.postimg.cc/3x23z0SP/farm-bg.jpg") center/cover no-repeat;
+        background: 
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("https://i.postimg.cc/8kps8Gfd/modern-farm-bg.jpg") center/cover no-repeat;
+        /* BACKGROUND PERTANIAN MODERN */
+        
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         color: white;
-        text-shadow: 2px 2px 5px black;
+        text-shadow: 2px 2px 6px black;
         padding: 0 20px;
         text-align: center;
     }
 
     .judul {
-        font-size: 42px;
+        font-size: 45px;
         font-weight: bold;
         margin-bottom: 10px;
     }
@@ -57,10 +62,11 @@
     .kelompok {
         font-size: 24px;
         font-weight: bold;
-        background: rgba(0,0,0,0.4);
+        background: rgba(255,255,255,0.15);
         padding: 10px 20px;
         border-radius: 12px;
         margin-bottom: 30px;
+        backdrop-filter: blur(5px);
     }
 
     .btn {
@@ -90,6 +96,12 @@
         background: white;
         border-radius: 12px;
         box-shadow: 0 0 12px rgba(0,0,0,0.2);
+        animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
     }
 
     select, button {
@@ -106,6 +118,7 @@
         background: #eef8ee;
         border-left: 5px solid #4CAF50;
         border-radius: 8px;
+        animation: fadeIn 0.6s ease;
     }
 
     .imgPenyakit {
@@ -113,14 +126,9 @@
         border-radius: 10px;
         margin-top: 10px;
     }
-
-    .imgGejala {
-        width: 100%;
-        margin-top: 10px;
-        border-radius: 8px;
-    }
 </style>
 </head>
+
 <body>
 
 <!-- Daun jatuh -->
@@ -161,57 +169,7 @@ for (let i = 0; i < 15; i++) {
 <script>
 // ====================== DATA ==========================
 const data = [
-    {tumbuhan:"Anggur", penyakit:"Embun Tepung (Powdery Mildew)", gejala:"Daun Menguning dan Menggulung", img:"https://i.postimg.cc/fR7q7z9z/powdery-mildew.jpg"},
-    {tumbuhan:"Gandum", penyakit:"Karat Daun (Leaf Rust)", gejala:"Bercak Timbul pada Permukaan Daun", img:"https://i.postimg.cc/TwPWmKbp/leaf-rust.jpg"},
-    {tumbuhan:"Padi", penyakit:"Hawar Daun Bakteri (BLB)", gejala:"Ujung Daun Mengering", img:"https://i.postimg.cc/XJy7sdqt/hawar-daun.jpg"},
-    {tumbuhan:"Tomat", penyakit:"Busuk Akar (Root Rot)", gejala:"Tanaman Layu meski Tanah Basah", img:"https://i.postimg.cc/tTKKr0nC/root-rot.jpg"},
-    {tumbuhan:"Melon", penyakit:"Layu Fusarium", gejala:"Batang Bagian dalam Cokelat", img:"https://i.postimg.cc/Vvy92LrD/fusarium.jpg"},
-    {tumbuhan:"Timun", penyakit:"Virus Mosaik (CMV/TMV)", gejala:"Daun Keriting dan Mengecil", img:"https://i.postimg.cc/Vsk0ryyb/mosaic-virus.jpg"},
-    {tumbuhan:"Pepaya", penyakit:"Antraknosa (Anthracnose)", gejala:"Ada Cincin Konsentris", img:"https://i.postimg.cc/jds0svZK/anthracnose.jpg"},
-    {tumbuhan:"Kentang", penyakit:"Layu Bakteri (Bacterial Wilt)", gejala:"Tanaman Layu Mendadak", img:"https://i.postimg.cc/hPfGxXn1/bacterial-wilt.jpg"},
-    {tumbuhan:"Cabai", penyakit:"Gummosis (Getah)", gejala:"Getah Kental Keluar dari Batang", img:"https://i.postimg.cc/mDdG1rWY/gummosis.jpg"},
-    {tumbuhan:"Kelapa Sawit", penyakit:"Busuk Pangkal Batang (BSR)", gejala:"Pangkal Batang Membusuk dan Hitam", img:"https://i.postimg.cc/Y0d2JxxC/basal-stem-rot.jpg"},
-];
-
-// ==================== Isi dropdown ====================
-const gejalaList = [...new Set(data.map(d => d.gejala))];
-
-function isiDropdown() {
-    const select = document.getElementById("gejalaSelect");
-    gejalaList.forEach(g => {
-        select.innerHTML += `<option value="${g}">${g}</option>`;
-    });
-}
-isiDropdown();
-
-// ==================== Masuk SPK ======================
-function bukaSPK() {
-    document.getElementById("menuPage").style.display = "none";
-    document.getElementById("spkPage").style.display = "block";
-}
-
-// ======================= Diagnosa ======================
-function diagnosa() {
-    const g = document.getElementById("gejalaSelect").value;
-    const hasil = document.getElementById("hasil");
-
-    if (!g) {
-        hasil.innerHTML = `<div class='result-box'>Silakan pilih gejala terlebih dahulu.</div>`;
-        return;
-    }
-
-    const cocok = data.find(d => d.gejala === g);
-
-    hasil.innerHTML = `
-        <div class='result-box'>
-            <b>Nama Tumbuhan:</b> ${cocok.tumbuhan} <br>
-            <b>Penyakit:</b> ${cocok.penyakit} <br>
-            <b>Gejala:</b> ${cocok.gejala} <br>
-            <img class='imgPenyakit' src="${cocok.img}">
-        </div>
-    `;
-}
-</script>
-
-</body>
-</html>
+    {tumbuhan:"Anggur", penyakit:"Embun Tepung", gejala:"Daun Menguning dan Menggulung", img:"https://i.postimg.cc/fR7q7z9z/powdery-mildew.jpg"},
+    {tumbuhan:"Gandum", penyakit:"Karat Daun", gejala:"Bercak Timbul pada Permukaan Daun", img:"https://i.postimg.cc/TwPWmKbp/leaf-rust.jpg"},
+    {tumbuhan:"Padi", penyakit:"Hawar Daun Bakteri", gejala:"Ujung Daun Mengering", img:"https://i.postimg.cc/XJy7sdqt/hawar-daun.jpg"},
+    {tumbuhan:"Tomat", penyakit:"Busuk Akar", gejala:"Tanaman
