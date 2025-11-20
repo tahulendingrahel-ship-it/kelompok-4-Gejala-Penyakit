@@ -2,174 +2,109 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SPK Penyakit Tanaman - Kelompok 4 TI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Datang di SPK Tumbuhan</title>
 
 <style>
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
-        background: #e9f5e9;
-        overflow-x: hidden;
-    }
-
-    /* ==================== ANIMASI DAUN ==================== */
-    .leaf {
-        position: fixed;
-        top: -50px;
-        width: 30px;
-        height: 30px;
-        background-image: url("https://i.postimg.cc/25qKwW0B/leaf.png");
-        background-size: cover;
-        opacity: 0.8;
-        animation: fall 5s linear infinite;
-        pointer-events: none;
-    }
-
-    @keyframes fall {
-        0% { transform: translateY(-50px) rotate(0deg); }
-        100% { transform: translateY(110vh) rotate(360deg); }
-    }
-
-    /* ====================== MENU ====================== */
-    #menuPage {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #4CAF50, #2e7d32);
         height: 100vh;
-        background: 
-        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-        url("https://i.postimg.cc/8kps8Gfd/modern-farm-bg.jpg") center/cover no-repeat;
-        /* BACKGROUND PERTANIAN MODERN */
-        
+        overflow: hidden;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         color: white;
-        text-shadow: 2px 2px 6px black;
-        padding: 0 20px;
+    }
+
+    .card {
         text-align: center;
-    }
-
-    .judul {
-        font-size: 45px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .subjudul {
-        font-size: 22px;
-        margin-bottom: 40px;
-    }
-
-    .kelompok {
-        font-size: 24px;
-        font-weight: bold;
-        background: rgba(255,255,255,0.15);
-        padding: 10px 20px;
-        border-radius: 12px;
-        margin-bottom: 30px;
-        backdrop-filter: blur(5px);
-    }
-
-    .btn {
-        padding: 15px 40px;
-        font-size: 20px;
-        font-weight: bold;
-        background: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .btn:hover {
-        transform: scale(1.1);
-        background: #45a049;
-    }
-
-    /* ====================== SPK ====================== */
-    #spkPage {
-        display: none;
-        width: 90%;
-        max-width: 600px;
-        margin: 40px auto;
-        padding: 20px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 0 12px rgba(0,0,0,0.2);
-        animation: fadeIn 0.6s ease;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 40px;
+        border-radius: 18px;
+        width: 85%;
+        max-width: 450px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        animation: fadeIn 1.3s ease;
     }
 
     @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(20px);}
+        from {opacity: 0; transform: translateY(25px);}
         to {opacity: 1; transform: translateY(0);}
     }
 
-    select, button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 10px;
-        font-size: 16px;
-        border-radius: 8px;
+    h1 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
     }
 
-    .result-box {
-        margin-top: 20px;
-        padding: 15px;
-        background: #eef8ee;
-        border-left: 5px solid #4CAF50;
-        border-radius: 8px;
-        animation: fadeIn 0.6s ease;
+    p {
+        font-size: 18px;
+        margin-top: 8px;
     }
 
-    .imgPenyakit {
+    .btn-enter {
+        margin-top: 25px;
+        padding: 14px 20px;
         width: 100%;
+        border: none;
+        font-size: 18px;
         border-radius: 10px;
-        margin-top: 10px;
+        cursor: pointer;
+        background: #ffffff;
+        color: #2e7d32;
+        font-weight: bold;
+        transition: 0.3s;
+        box-shadow: 0 4px 14px rgba(255,255,255,0.3);
     }
+
+    .btn-enter:hover {
+        transform: scale(1.05);
+        background: #e8ffe8;
+    }
+
+    .team {
+        margin-top: 25px;
+        padding: 15px;
+        background: rgba(255,255,255,0.18);
+        border-radius: 10px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .team-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
 </style>
 </head>
-
 <body>
 
-<!-- Daun jatuh -->
+<div class="card">
+    <h1>SPK Diagnosa Tumbuhan</h1>
+    <p>Selamat Datang</p>
+
+    <button class="btn-enter" onclick="masuk()">MASUK</button>
+
+    <div class="team">
+        <div class="team-title">Kelompok:</div>
+        Tiara Farliani Mamonto – 250311080023<br>
+        Juandri G. Sepang – 250311080018<br>
+        Lotta Virni Br Tumanggor – 250311080019<br>
+        Rahel Tahulending – 250311080020<br>
+        Salli Mustika Sihaloho – 250311080021
+    </div>
+</div>
+
 <script>
-for (let i = 0; i < 15; i++) {
-    let leaf = document.createElement("div");
-    leaf.className = "leaf";
-    leaf.style.left = Math.random() * 100 + "vw";
-    leaf.style.animationDelay = Math.random() * 5 + "s";
-    leaf.style.opacity = Math.random();
-    document.body.appendChild(leaf);
+function masuk() {
+    window.location.href = "spk.html"; // arahkan ke halaman menu utama
 }
 </script>
 
-<!-- =============== MENU =============== -->
-<div id="menuPage">
-    <div class="judul">SISTEM PENDUKUNG KEPUTUSAN</div>
-    <div class="subjudul">Diagnosa Penyakit Tanaman</div>
-
-    <div class="kelompok">KELOMPOK 4 - TEKNOLOGI INFORMASI</div>
-
-    <button class="btn" onclick="bukaSPK()">MASUK KE SPK</button>
-</div>
-
-<!-- =============== SPK =============== -->
-<div id="spkPage">
-    <h2 style="text-align:center;">Pilih Gejala</h2>
-
-    <select id="gejalaSelect">
-        <option value="">-- pilih gejala --</option>
-    </select>
-
-    <button class="btn" onclick="diagnosa()">Diagnosa</button>
-
-    <div id="hasil"></div>
-</div>
-
-<script>
-// ====================== DATA ==========================
-const data = [
-    {tumbuhan:"Anggur", penyakit:"Embun Tepung", gejala:"Daun Menguning dan Menggulung", img:"https://i.postimg.cc/fR7q7z9z/powdery-mildew.jpg"},
-    {tumbuhan:"Gandum", penyakit:"Karat Daun", gejala:"Bercak Timbul pada Permukaan Daun", img:"https://i.postimg.cc/TwPWmKbp/leaf-rust.jpg"},
-    {tumbuhan:"Padi", penyakit:"Hawar Daun Bakteri", gejala:"Ujung Daun Mengering", img:"https://i.postimg.cc/XJy7sdqt/hawar-daun.jpg"},
-    {tumbuhan:"Tomat", penyakit:"Busuk Akar", gejala:"Tanaman
+</body>
+</html>
