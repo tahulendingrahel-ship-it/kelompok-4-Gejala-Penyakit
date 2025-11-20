@@ -1,108 +1,227 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selamat Datang di SPK Tumbuhan</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SPK Diagnosa Tumbuhan</title>
 <style>
     body {
+        font-family: 'Poppins', sans-serif;
+        background: #e0f0ff;
         margin: 0;
-        font-family: "Poppins", sans-serif;
-        background: linear-gradient(135deg, #4CAF50, #2e7d32);
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
+        padding: 20px;
+        color: #0a3d62;
     }
-
-    .card {
-        text-align: center;
-        background: rgba(255, 255, 255, 0.15);
-        padding: 40px;
-        border-radius: 18px;
-        width: 85%;
-        max-width: 450px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-        animation: fadeIn 1.3s ease;
+    .container {
+        max-width: 600px;
+        margin: 30px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        display: none;
+        transition: all 0.5s ease;
     }
-
-    @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(25px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-
-    h1 {
-        margin: 0;
-        font-size: 32px;
-        font-weight: 700;
-    }
-
-    p {
-        font-size: 18px;
-        margin-top: 8px;
-    }
-
-    .btn-enter {
-        margin-top: 25px;
-        padding: 14px 20px;
+    select, button {
         width: 100%;
-        border: none;
-        font-size: 18px;
+        padding: 12px;
+        margin-top: 12px;
         border-radius: 10px;
-        cursor: pointer;
-        background: #ffffff;
-        color: #2e7d32;
-        font-weight: bold;
+        border: 1px solid #4da6ff;
+        font-size: 16px;
         transition: 0.3s;
-        box-shadow: 0 4px 14px rgba(255,255,255,0.3);
     }
-
-    .btn-enter:hover {
+    select:focus {
+        border-color: #1e90ff;
+        outline: none;
+    }
+    button {
+        background: #1e90ff;
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+        box-shadow: 0 5px 15px rgba(30,144,255,0.4);
+    }
+    button:hover {
         transform: scale(1.05);
-        background: #e8ffe8;
+        box-shadow: 0 8px 25px rgba(30,144,255,0.6);
     }
-
-    .team {
-        margin-top: 25px;
+    h2 {
+        text-align: center;
+        color: #1e3d7c;
+        margin-bottom: 20px;
+    }
+    .hasil {
+        background: #e6f2ff;
         padding: 15px;
-        background: rgba(255,255,255,0.18);
-        border-radius: 10px;
-        font-size: 14px;
-        line-height: 20px;
+        margin-top: 15px;
+        border-left: 5px solid #1e90ff;
+        border-radius: 8px;
+        color: #0a3d62;
     }
-
-    .team-title {
-        font-weight: bold;
-        margin-bottom: 5px;
+    /* WELCOME SCREEN */
+    #welcomeScreen {
+        position: fixed;
+        top:0; left:0;
+        width:100%; height:100vh;
+        background: linear-gradient(135deg,#4da6ff,#1e90ff,#3399ff);
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        color:white;
+        text-align:center;
+        padding:20px;
+        animation:fadeIn 0.8s ease-out;
     }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
 
+    /* MENU KELOMPOK */
+    #menuAwal {
+        display: none;
+        background: #3399ff;
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 30px auto;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    #menuAwal .anggota {
+        text-align: left;
+        margin-top: 15px;
+        line-height: 1.6;
+        font-size: 15px;
+    }
 </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>SPK Diagnosa Tumbuhan</h1>
-    <p>Selamat Datang</p>
+<!-- WELCOME SCREEN -->
+<div id="welcomeScreen">
+    <h1 style="font-size:50px; font-weight:800; margin-bottom:15px;">🌿 SPK Tumbuhan</h1>
+    <p style="font-size:22px; margin-bottom:40px; opacity:0.9; max-width:80%;">
+        Sistem Pendukung Keputusan Diagnosa Penyakit Tanaman
+    </p>
 
-    <button class="btn-enter" onclick="masuk()">MASUK</button>
-
-    <div class="team">
-        <div class="team-title">Kelompok:</div>
-        Tiara Farliani Mamonto – 250311080023<br>
-        Juandri G. Sepang – 250311080018<br>
-        Lotta Virni Br Tumanggor – 250311080019<br>
-        Rahel Tahulending – 250311080020<br>
-        Salli Mustika Sihaloho – 250311080021
-    </div>
+    <button onclick="mulaiSPK()">Mulai</button>
 </div>
 
 <script>
-function masuk() {
-    window.location.href = "spk.html"; // arahkan ke halaman menu utama
+function mulaiSPK() {
+    let w = document.getElementById('welcomeScreen');
+    w.style.animation = 'fadeOut 0.7s forwards';
+    setTimeout(() => {
+        w.style.display = 'none';
+        document.getElementById("menuAwal").style.display = 'block';
+        document.querySelector(".container").style.display = 'block';
+    }, 700);
+}
+</script>
+
+<!-- MENU KELOMPOK -->
+<div id="menuAwal">
+    <div style="font-size:20px; font-weight:bold;">KELAS TEKNOLOGI INFORMASI - KELOMPOK 4</div>
+    <span>Nama Kelompok: <b>SPK Diagnosa Tumbuhan</b></span>
+    <div class="anggota">
+        <b>Daftar Anggota:</b><br>
+        1. Tiara Farliani Mamonto – 250311080023<br>
+        2. Juandri G. Sepang – 250311080018<br>
+        3. Lotta Virni Br Tumanggor – 250311080019<br>
+        4. Rahel Tahulending – 250311080020<br>
+        5. Salli Mustika Sihaloho – 250311080021<br>
+    </div>
+</div>
+
+<!-- SPK -->
+<div class="container">
+    <h2>Menu SPK Penyakit Tanaman</h2>
+
+    <label for="tanaman">Pilih Nama Tumbuhan:</label>
+    <select id="tanaman">
+        <option value="">-- Pilih Tumbuhan --</option>
+        <option value="cabai">Cabai</option>
+        <option value="tomat">Tomat</option>
+        <option value="bawang">Bawang Merah</option>
+        <option value="kentang">Kentang</option>
+        <option value="semangka">Semangka</option>
+        <option value="melon">Melon</option>
+        <option value="kol">Kol / Kubis</option>
+        <option value="timun">Mentimun</option>
+        <option value="stroberi">Stroberi</option>
+        <option value="terung">Terung</option>
+    </select>
+
+    <button onclick="diagnosa()">Diagnosa</button>
+
+    <div id="output" class="hasil" style="display:none;"></div>
+</div>
+
+<script>
+/* ==== DATA 10 TANAMAN HORTIKULTURA ==== */
+const data = {
+    cabai: { 
+        penyakit: "Antraknosa", 
+        gejala: "Buah muncul bercak hitam cekung yang membusuk dan menyebabkan buah rontok." 
+    },
+    tomat: { 
+        penyakit: "Layu Fusarium", 
+        gejala: "Daun menguning dimulai dari bawah lalu layu satu per satu, batang kecoklatan." 
+    },
+    bawang: { 
+        penyakit: "Busuk Daun Alternaria", 
+        gejala: "Daun terdapat bercak ungu kecoklatan dan ujung daun mengering." 
+    },
+    kentang: { 
+        penyakit: "Busuk Daun (Late Blight)", 
+        gejala: "Daun bercak hijau gelap berair, batang menghitam, umbi membusuk coklat." 
+    },
+    semangka: { 
+        penyakit: "Embun Bulu", 
+        gejala: "Daun menguning bermotif mosaik, bagian bawah daun ada jamur keabu-abuan." 
+    },
+    melon: { 
+        penyakit: "Layu Bakteri", 
+        gejala: "Tanaman layu tiba-tiba, batang jika dipotong keluar lendir putih pekat." 
+    },
+    kol: { 
+        penyakit: "Busuk Hitam", 
+        gejala: "Daun menguning membentuk pola huruf 'V', urat daun menghitam." 
+    },
+    timun: { 
+        penyakit: "Embun Tepung", 
+        gejala: "Daun tertutup bubuk putih, menguning, dan mudah rontok." 
+    },
+    stroberi: { 
+        penyakit: "Busuk Akar (Phytophthora)", 
+        gejala: "Akar berwarna coklat gelap dan membusuk, daun layu dari bawah." 
+    },
+    terung: { 
+        penyakit: "Bercak Daun Cercospora", 
+        gejala: "Daun muncul bercak bulat abu-abu dengan tepi coklat lalu mengering." 
+    }
+};
+
+function diagnosa() {
+    let tanaman = document.getElementById("tanaman").value;
+    let output = document.getElementById("output");
+
+    if (!tanaman) {
+        output.style.display = "block";
+        output.innerHTML = "Silakan pilih tumbuhan terlebih dahulu.";
+        return;
+    }
+
+    const t = data[tanaman];
+
+    output.style.display = "block";
+    output.innerHTML = `
+        <b>Tumbuhan:</b> ${tanaman.charAt(0).toUpperCase() + tanaman.slice(1)}<br>
+        <b>Penyakit:</b> ${t.penyakit}<br>
+        <b>Gejala:</b> ${t.gejala}
+    `;
 }
 </script>
 
